@@ -1,14 +1,14 @@
-﻿function getStartsShutDowns{
+function getStartsShutDowns(){
 Param(
 [int]$Days = 14
 )
 
-$startsShutDowns = Get-EventLog system -source Microsoft-Windows-Winlogon -After (Get-Date).AddDays(-$Days)
+$startsShutDowns = Get-EventLog system -After (Get-Date).AddDays(-$Days) | Where-Object {$_.EventId -in 6005, 6006 }
 $startsShutDownsTable = @()
 
 for($i=0; $i -lt $startsShutDowns.Count; $i++){
 $event = ""
-if($startsShutDowns[$i].EventId -eq 6006) {$event="Shut-Down"}
+if($startsShutDowns[$i].EventId -eq 6006) {$event="Shutdown"}
 if($startsShutDowns[$i].EventId -eq 6005) {$event="Start"}
 
 $startsShutDownsTable += [pscustomobject]@{"Time" = $startsShutDowns[$i].TimeGenerated;
@@ -20,4 +20,4 @@ $startsShutDownsTable += [pscustomobject]@{"Time" = $startsShutDowns[$i].TimeGen
 return $startsShutDownsTable
 }
 
-getStartsShutDowns -Days 4
+#getStartsShutDowns -Days 14
