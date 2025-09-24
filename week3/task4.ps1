@@ -1,4 +1,4 @@
-﻿function getLoginLogouts{
+function getLoginLogouts(){
 Param(
 [int]$Days = 14
 )
@@ -25,4 +25,4 @@ $loginoutsTable += [pscustomobject]@{"Time" = $loginouts[$i].TimeGenerated;
 return $loginoutsTable
 }
 
-getLoginLogouts -Days 4
+#getLoginLogouts -Days 14
