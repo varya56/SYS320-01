@@ -1,5 +1,4 @@
-﻿$loginouts = Get-EventLog system -source Microsoft-Windows-Winlogon -After (Get-Date).AddDays(-14)
-$loginouts
+$loginouts = Get-EventLog system -source Microsoft-Windows-Winlogon -After (Get-Date).AddDays(-14)
 
 $loginoutsTable = @()
 for($i=0; $i -lt $loginouts.Count; $i++){
